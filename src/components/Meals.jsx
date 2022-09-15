@@ -3,7 +3,8 @@ import { BsHandThumbsUp } from 'react-icons/bs'
 
 
 const Meals = () => {
-  const { loading, meals } = useGlobalContext();
+  const { loading, meals, selectMeal, addToFavorites } = useGlobalContext();
+
   if (loading) {
     return <section className="section">
       <h4>Loading...</h4>
@@ -13,7 +14,7 @@ const Meals = () => {
   if (meals.length < 1) {
     return <section className="section">
       <h4>No meals matched your search term. Please try again.</h4>
-    </section>  
+    </section>
   }
 
   return <section className="section-center">
@@ -21,10 +22,10 @@ const Meals = () => {
       const { idMeal, strMeal: title, strMealThumb: image } = singleMeal
 
       return <article key={idMeal} className="single-meal" >
-        <img src={image} className="img" />
+        <img src={image} className="img" onClick={() => selectMeal(idMeal)} />
         <footer>
           <h5>{title}</h5>
-          <button className='like-btn'><BsHandThumbsUp /></button>
+          <button className='like-btn' onClick={() => addToFavorites(idMeal)} ><BsHandThumbsUp /></button>
         </footer>
 
       </article>
